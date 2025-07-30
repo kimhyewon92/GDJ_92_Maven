@@ -13,7 +13,7 @@ class NoticeDAOTest {
 	@Autowired
 	private NoticeDAO noticeDAO;
 	
-	//@Test
+	@Test
 	void insertTest() throws Exception {
 		NoticeVO noticeVO = new NoticeVO();
 		noticeVO.setBoardTitle("title3");
@@ -22,7 +22,7 @@ class NoticeDAOTest {
 		int result = noticeDAO.insert(noticeVO);
 		
 		// 단정문
-		assertEquals(0, result);
+		assertEquals(1, result);
 	}
 	
 	//@Test
@@ -37,9 +37,9 @@ class NoticeDAOTest {
 		assertEquals(1, result);
 	}
 	
-	@Test
+	//@Test
 	public void delete() throws Exception{
-		int result = noticeDAO.delete(2);
+		int result = noticeDAO.delete(3);
 		
 		// 단정문
 		assertEquals(1, result);
