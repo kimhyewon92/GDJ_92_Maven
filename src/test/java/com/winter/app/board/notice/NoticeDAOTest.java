@@ -1,7 +1,10 @@
 package com.winter.app.board.notice;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +20,16 @@ class NoticeDAOTest {
 
 	@Autowired
 	private NoticeDAO noticeDAO;
-
+	
 	@Test
+	void listTest() throws Exception{
+		List<BoardVO> list = noticeDAO.list();
+		
+		// 단정문
+		assertNotEquals(0, list);
+	}
+	
+	//@Test
 	void detailTest() throws Exception{
 		NoticeVO noticeVO = new NoticeVO();
 		noticeVO.setBoardNum(7L);
@@ -53,7 +64,7 @@ class NoticeDAOTest {
 	}
 	
 	//@Test
-	public void delete() throws Exception{
+	void deleteTest() throws Exception{
 		int result = noticeDAO.delete(3);
 		
 		// 단정문

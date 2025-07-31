@@ -18,7 +18,30 @@
 				<c:import url="/WEB-INF/views/include/topbar.jsp"></c:import>
 				<div class="container-fluid">
 					<!-- page contents 내용 -->
-					<h1>Index </h1>
+					<div class="row col-md-8 offset-md-2">
+						<table class="table table-striped">
+							<thead>
+								<tr>
+									<th>Num</th>
+									<th>Title</th>
+									<th>Content</th>
+									<th>Writer</th>
+									<th>Date</th>
+									<th>Hit</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>${boardVO.boardNum}</td>
+									<td>${boardVO.boardTitle}</a></td>
+									<td>${boardVO.boardContents}</a></td>
+									<td>${boardVO.boardWriter}</td>
+									<td>${boardVO.boardDate}</td>
+									<td>${boardVO.boardHit}</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
 				</div>
 			</div>
 			<!-- End Content -->
