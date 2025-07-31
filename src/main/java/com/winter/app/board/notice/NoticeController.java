@@ -5,13 +5,15 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.winter.app.board.BoardVO;
+
 @Controller
 @RequestMapping(value="/notice/*")
 public class NoticeController {
 
 	@Autowired
 	private NoticeDAO noticeDAO;
-	
+
 	@GetMapping("add")
 	public void insert() throws Exception{
 		NoticeVO noticeVO = new NoticeVO();
