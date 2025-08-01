@@ -41,6 +41,17 @@
 								</tr>
 							</tbody>
 						</table>
+						
+						<div>
+							<form id="frm">
+								<input type="hidden" name="boardNum" value="${boardVO.boardNum}">
+							</form>
+							
+							<button class="btn btn-outline-success action" data-kind="u">Update</button>
+							<button class="btn btn-outline-danger action" data-kind="d">Delete</button>
+							
+						</div>
+						
 					</div>
 				</div>
 			</div>
@@ -51,6 +62,6 @@
 		
 	</div>
 	<c:import url="/WEB-INF/views/include/tail.jsp"></c:import>
-	
+	<script type="text/javascript" src="/js/board/board_detail.js"></script>
 </body>
 </html>

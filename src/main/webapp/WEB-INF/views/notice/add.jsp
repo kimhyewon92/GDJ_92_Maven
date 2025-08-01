@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Notice List</title>
+<title>Add Page</title>
 <c:import url="/WEB-INF/views/include/head_css.jsp"></c:import>
 </head>
 <body id="page-top">
@@ -18,34 +18,21 @@
 				<c:import url="/WEB-INF/views/include/topbar.jsp"></c:import>
 				<div class="container-fluid">
 					<!-- page contents 내용 -->
-					<div class="row col-md-8 offset-md-2">
-						<table class="table table-striped">
-							<thead>
-								<tr>
-									<th>Num</th>
-									<th>Title</th>
-									<th>Writer</th>
-									<th>Date</th>
-									<th>Hit</th>
-								</tr>
-							</thead>
-							<tbody>
-								<c:forEach var="l" items="${list}">
-									<tr>
-										<td>${l.boardNum}</td>
-										<td><a href="./detail?boardNum=${l.boardNum }">${l.boardTitle}</a></td>
-										<td>${l.boardWriter}</td>
-										<td>${l.boardDate}</td>
-										<td>${l.boardHit}</td>
-									</tr>
-								</c:forEach>
-							</tbody>
-						</table>
-						
-						<div>
-							<a href="./add" class="btn btn-outline-primary">글쓰기</a>
+					<form method="post">
+						<div class="mb-3">
+						  <label for="exampleInputEmail1" class="form-label">Writer</label>
+						  <input type="text" class="form-control" id="exampleInputEmail1" name="boardWriter" aria-describedby="emailHelp">
 						</div>
-					</div>
+						<div class="mb-3">
+						  <label for="exampleInputEmail1" class="form-label">Title</label>
+						  <input type="text" class="form-control" id="exampleInputEmail1" name="boardTitle" aria-describedby="emailHelp">
+						</div>
+						<div class="mb-3">
+						  <label for="exampleInputEmail1" class="form-label">Content</label>
+						  <input type="text" class="form-control" id="exampleInputEmail1" name="boardContents" aria-describedby="emailHelp">
+						</div>
+						<button type="submit" class="btn btn-primary">Submit</button>
+					</form>
 				</div>
 			</div>
 			<!-- End Content -->

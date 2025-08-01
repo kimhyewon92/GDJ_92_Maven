@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.winter.app.board.BoardVO;
@@ -36,16 +37,18 @@ public class NoticeController {
 		return "notice/detail";
 	}
 	
-//	@GetMapping("add")
-//	public void insert() throws Exception{
-//		NoticeVO noticeVO = new NoticeVO();
-//		noticeVO.setBoardTitle("title");
-//		noticeVO.setBoardContents("contents");
-//		noticeVO.setBoardWriter("writer");
-//		int result = noticeDAO.insert(noticeVO);
-//	}
-//	
-//		
+	@GetMapping("add")
+	public String insert() {
+		return "notice/add";
+	}
+	
+	@PostMapping("add")
+	public String insert(NoticeVO noticeVO) throws Exception{
+		int result = noticeService.insert(noticeVO);
+		return "redirect:./list";
+	}
+	
+		
 //	public void update() throws Exception{
 //		NoticeVO noticeVO = new NoticeVO();
 //		noticeVO.setBoardNum(1L);

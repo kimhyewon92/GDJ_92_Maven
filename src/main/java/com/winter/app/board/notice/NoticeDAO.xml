@@ -14,7 +14,7 @@
 		</select>
 		
 		<!-- ID는 DAO의 메서드명과 동일하게 작성 -->
-		<insert id="insert" parameterType="NoticeVO">
+		<insert id="insert">
 			INSERT INTO NOTICE (BOARD_NUM, BOARD_TITLE, BOARD_CONTENTS, BOARD_WRITER, BOARD_DATE, BOARD_HIT)
 			VALUES
 			(NULL, #{boardTitle}, #{boardContents}, #{boardWriter}, now(), 0)
