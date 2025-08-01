@@ -48,18 +48,48 @@ public class NoticeController {
 		return "redirect:./list";
 	}
 	
+	@GetMapping("update")
+	public String update(BoardVO noticeVO, Model model) throws Exception{
+		BoardVO boardVO = noticeService.detail(noticeVO);
+		model.addAttribute("boardVO", boardVO);
+		return "notice/add";
+	}
+	
+	@PostMapping("update")
+	public String update(NoticeVO noticeVO, Model model) throws Exception{
+		int result = noticeService.update(noticeVO);
 		
-//	public void update() throws Exception{
-//		NoticeVO noticeVO = new NoticeVO();
-//		noticeVO.setBoardNum(1L);
-//		noticeVO.setBoardTitle("title4");
-//		noticeVO.setBoardContents("contents4");
-//		int result = noticeDAO.update(noticeVO);
-//	}
-//	
-//	@GetMapping("delete")
-//	public void delete() throws Exception{
-//		int result = noticeDAO.delete(2);
-//	}
+		String msg = "수정 실패";
+		
+		if (result > 0) {
+			msg="수정이 완료되었습니다.";
+		}
+		
+		String url = "./detail?boardNum="+noticeVO.getBoardNum();
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "commons/result"; //"redirect:./detail?boardNum="+noticeVO.getBoardNum(); //redirect는 get 형식
+	}
+	
+	@PostMapping("delete")
+	public String delete(NoticeVO noticeVO, Model model) throws Exception{
+		int result = noticeService.delete(noticeVO);
+		
+		String msg = "삭제 실패";
+		
+		if (result > 0) {
+			msg = "삭제가 완료되었습니다.";
+		}
+		
+		String url = "./list";
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "commons/result";
+	}
 	
 }
+
