@@ -19,27 +19,27 @@
 				<div class="container-fluid">
 					<!-- page contents 내용 -->
 					<div class="row col-md-8 offset-md-2">
-						<table class="table table-striped">
-							<thead>
-								<tr>
-									<th>Num</th>
-									<th>Title</th>
-									<th>Content</th>
-									<th>Writer</th>
-									<th>Date</th>
-									<th>Hit</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr>
-									<td>${boardVO.boardNum}</td>
-									<td>${boardVO.boardTitle}</a></td>
-									<td>${boardVO.boardContents}</a></td>
-									<td>${boardVO.boardWriter}</td>
-									<td>${boardVO.boardDate}</td>
-									<td>${boardVO.boardHit}</td>
-								</tr>
-							</tbody>
+						<table class="table">
+							<tr>
+								<th>Num</th>
+								<td>${boardVO.boardNum}</td>
+								<th>Hit</th>
+								<td>${boardVO.boardHit}</td>
+							</tr>
+							<tr>	
+								<th>Writer</th>
+								<td>${boardVO.boardWriter}</td>
+								<th>Date</th>
+								<td>${boardVO.boardDate}</td>
+							</tr>
+							<tr>	
+								<th colspan="3">Title</th>
+								<td>${boardVO.boardTitle}</a></td>
+							</tr>
+							<tr>	
+								<th colspan="3">Content</th>
+								<td>${boardVO.boardContents}</a></td>
+							</tr>
 						</table>
 						
 						<div>
