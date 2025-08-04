@@ -19,4 +19,16 @@ public class ProductService {
 		return productDAO.detail(productVO);
 	}
 	
+	public int insert(ProductVO productVO) throws Exception {
+		return productDAO.insert(productVO);
+	}
+	
+	public int update(ProductVO productVO) throws Exception {
+		return productDAO.update(productVO);
+	}
+	
+	public int delete(ProductVO productVO) throws Exception {
+		return productDAO.delete(productVO);
+	}
+	
 }

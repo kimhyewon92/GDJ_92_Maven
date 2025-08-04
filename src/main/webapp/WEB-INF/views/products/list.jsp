@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,7 +35,7 @@
 										<td>${l.productNum }</td>
 										<td><a href="./detail?productNum=${l.productNum }">${l.productName}</a></td>
 										<td>${l.productRate }</td>
-										<td>${fn:substringBefore(l.productDate, 'T')}</td>
+										<td>${l.productDate}</td>
 									</tr>
 								</c:forEach>
 							</tbody>

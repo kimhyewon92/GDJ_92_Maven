@@ -18,24 +18,32 @@
 				<c:import url="/WEB-INF/views/include/topbar.jsp"></c:import>
 				<div class="container-fluid">
 					<!-- page contents 내용 -->
-					
+					<!-- 상품종류, 상품이름, 상품내용, 판매기간, 상품이율 -->
 					<form method="post">
-						<input type="hidden" name="boardNum" value="${boardVO.boardNum }">
+						<input type="hidden" name="productNum" value="${productVO.productNum }">
 						<div class="mb-3">
-						  <label for="exampleInputEmail1" class="form-label">상품명</label>
-						  <input type="text" class="form-control" id="exampleInputEmail1" name="boardWriter" aria-describedby="emailHelp" value="${boardVO.boardWriter }">
+							<select class="form-select" name="kindNum" aria-label="Default select example">
+								<option selected>상품 종류</option>
+								<option value="1" ${productVO.kindNum eq 1 ? 'selected' : ''}>예금</option>
+								<option value="2" ${productVO.kindNum eq 2 ? 'selected' : ''}>적금</option>
+								<option value="3" ${productVO.kindNum eq 3 ? 'selected' : ''}>대출</option>
+							</select>
 						</div>
 						<div class="mb-3">
-						  <label for="exampleInputEmail1" class="form-label">상품 종류</label>
-						  <input type="text" class="form-control" id="exampleInputEmail1" name="boardWriter" aria-describedby="emailHelp" value="${boardVO.boardWriter }">
+							<label for="exampleInputEmail1" class="form-label">Name</label>
+							<input type="text" class="form-control" id="exampleInputEmail1" name="productName" aria-describedby="emailHelp" value="${productVO.productName }">
 						</div>
 						<div class="mb-3">
-						  <label for="exampleInputEmail1" class="form-label">상품 설명</label>
-						  <input type="text" class="form-control" id="exampleInputEmail1" name="boardTitle" aria-describedby="emailHelp" value="${boardVO.boardTitle }">
+							<label for="exampleInputEmail1" class="form-label">Rate</label>
+							<input type="number" step="0.1" class="form-control" id="exampleInputEmail1" name="productRate" aria-describedby="emailHelp" value="${productVO.productRate }">
 						</div>
 						<div class="mb-3">
-						  <label for="exampleInputEmail1" class="form-label">상품 이율</label>
-						  <input type="text" class="form-control" id="exampleInputEmail1" name="boardContents" aria-describedby="emailHelp" value="${boardVO.boardContents }">
+							<label for="exampleInputEmail1" class="form-label">Sales Period</label>
+							<input type="date" class="form-control" id="exampleInputEmail1" name="productDate" aria-describedby="emailHelp" value="${productVO.productDate }">
+						</div>
+						<div class="mb-3">
+							<label for="exampleInputEmail1" class="form-label">Contents</label>
+							<input type="text" class="form-control" id="exampleInputEmail1" name="productContents" aria-describedby="emailHelp" value="${productVO.productContents }">
 						</div>
 						<button type="submit" class="btn btn-primary">Submit</button>
 					</form>
