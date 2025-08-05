@@ -51,7 +51,19 @@ public class QnaController {
 	@PostMapping("reply")
 	public String replyUpdateInsert(QnaVO qnaVO, Model model) throws Exception {
 		int result = qnaService.reply(qnaVO);
-		return "redirect:./list";
+		
+		String msg = "답글 등록 실패";
+		
+		if(result > 0) {
+			msg = "답글 등록이 완료되었습니다.";
+		}
+		
+		String url = "./list";
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "commons/result";
 	}
 	
 	@GetMapping("add")
@@ -69,7 +81,7 @@ public class QnaController {
 			msg = "등록이 완료되었습니다.";
 		}
 		
-		String url = "./detail?boardNum="+qnaVO.getBoardNum();
+		String url = "./list";
 		
 		model.addAttribute("msg", msg);
 		model.addAttribute("url", url);

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,7 +23,7 @@
 						<h2>${board }</h2>
 						<table class="table">
 							<tr>
-								<th>Num</th>
+								<th>No</th>
 								<td>${boardVO.boardNum}</td>
 								<th>Hit</th>
 								<td>${boardVO.boardHit}</td>
@@ -31,15 +32,15 @@
 								<th>Writer</th>
 								<td>${boardVO.boardWriter}</td>
 								<th>Date</th>
-								<td>${boardVO.boardDate}</td>
+								<td>${fn:replace(boardVO.boardDate, 'T', '&nbsp;&nbsp;')}</td>
 							</tr>
 							<tr>	
-								<th colspan="3">Title</th>
-								<td>${boardVO.boardTitle}</a></td>
+								<th>Title</th>
+								<td colspan="3">${boardVO.boardTitle}</a></td>
 							</tr>
 							<tr>	
-								<th colspan="3">Content</th>
-								<td>${boardVO.boardContents}</a></td>
+								<th>Content</th>
+								<td colspan="3">${boardVO.boardContents}</a></td>
 							</tr>
 						</table>
 												
