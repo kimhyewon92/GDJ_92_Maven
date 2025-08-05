@@ -40,6 +40,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <a class="collapse-item" href="/notice/list">Notice</a>
                         <a class="collapse-item" href="/products/list">Products</a>
+                        <a class="collapse-item" href="/qna/list">QnA</a>
                     </div>
                 </div>
             </li>

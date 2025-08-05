@@ -19,6 +19,7 @@
 				<div class="container-fluid">
 					<!-- page contents 내용 -->
 					<div class="row col-md-8 offset-md-2">
+						<h2>${board}</h2>
 						<table class="table table-striped">
 							<thead>
 								<tr>
@@ -33,7 +34,12 @@
 								<c:forEach var="l" items="${list}">
 									<tr>
 										<td>${l.boardNum}</td>
-										<td><a href="./detail?boardNum=${l.boardNum }">${l.boardTitle}</a></td>
+										<td>
+											<c:catch>
+												<c:forEach begin="1" end="${l.boardDepth }">&nbsp;&nbsp;↳&nbsp;&nbsp;</c:forEach>
+											</c:catch>
+											<a href="./detail?boardNum=${l.boardNum }">${l.boardTitle}</a>
+										</td>
 										<td>${l.boardWriter}</td>
 										<td>${l.boardDate}</td>
 										<td>${l.boardHit}</td>
