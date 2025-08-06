@@ -39,6 +39,12 @@
 								<td colspan="3">${boardVO.boardTitle}</a></td>
 							</tr>
 							<tr>	
+								<th>File</th>
+								<td colspan="3">
+									<a href="/files/${board}/${boardVO.boardFileVO.saveName}">${boardVO.boardFileVO.oriName}</a>
+								</td>
+							</tr>
+							<tr>	
 								<th>Content</th>
 								<td colspan="3">${boardVO.boardContents}</a></td>
 							</tr>

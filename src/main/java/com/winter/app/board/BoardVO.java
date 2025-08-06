@@ -17,5 +17,7 @@ public class BoardVO {
 	private String boardWriter;
 	private LocalDateTime boardDate;
 	private Long boardHit;
+	
+	private BoardFileVO boardFileVO;
 			
 }
