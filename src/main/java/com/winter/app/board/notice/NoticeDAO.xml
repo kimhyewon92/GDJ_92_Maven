@@ -20,10 +20,15 @@
 		</select>
 		
 		<!-- ID는 DAO의 메서드명과 동일하게 작성 -->
-		<insert id="insert">
+		<insert id="insert" parameterType="NoticeVO" useGeneratedKeys="true" keyProperty="boardNum">
 			INSERT INTO NOTICE (BOARD_NUM, BOARD_TITLE, BOARD_CONTENTS, BOARD_WRITER, BOARD_DATE, BOARD_HIT)
 			VALUES
 			(NULL, #{boardTitle}, #{boardContents}, #{boardWriter}, now(), 0)
+		</insert>
+		
+		<insert id="insertFile" parameterType="BoardFileVO">
+			INSERT INTO NOTICEFILES
+			VALUES (NULL, #{oriName}, #{saveName}, #{boardNum})
 		</insert>
 		
 		<update id="update" parameterType="NoticeVO">

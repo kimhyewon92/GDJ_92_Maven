@@ -18,7 +18,7 @@
 				<c:import url="/WEB-INF/views/include/topbar.jsp"></c:import>
 				<div class="container-fluid">
 					<!-- page contents 내용 -->
-					<form method="post">
+					<form method="post" enctype="multipart/form-data">
 						<input type="hidden" name="boardNum" value="${boardVO.boardNum }">
 						<div class="mb-3">
 						  <label for="exampleInputEmail1" class="form-label">Writer</label>
@@ -32,6 +32,11 @@
 						  <label for="exampleInputEmail1" class="form-label">Content</label>
 						  <input type="text" class="form-control" id="exampleInputEmail1" name="boardContents" aria-describedby="emailHelp" value="${boardVO.boardContents }">
 						</div>
+						
+						<div class="mb-3">
+						  <input type="file" name="attaches">
+						</div>
+						
 						<button type="submit" class="btn btn-primary">Submit</button>
 					</form>
 				</div>
