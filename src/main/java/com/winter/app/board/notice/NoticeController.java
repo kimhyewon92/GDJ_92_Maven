@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.winter.app.board.BoardVO;
+import com.winter.app.commons.Pager;
 
 @Controller
 @RequestMapping(value="/notice/*")
@@ -28,10 +29,11 @@ public class NoticeController {
 		return name;
 	}
 	
+	// @ModelAttribute Pager pager 이렇게.. jsp페이지에서는 타입앞글자 소문자로 자동저장됨..
 	@GetMapping("list")
-	public String list(Model model) throws Exception{
+	public String list(Pager pager, Model model) throws Exception{
 		// model: spring 리퀘스트 라이프사이클 유사, 스프링 컨트롤러에서 jsp로 전달할때 사용, 매개변수에 선언
-		List<BoardVO> list = noticeService.list();
+		List<BoardVO> list = noticeService.list(pager);
 		model.addAttribute("list", list);
 		
 		return "board/list";

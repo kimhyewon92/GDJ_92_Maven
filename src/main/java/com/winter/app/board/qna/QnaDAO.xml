@@ -5,8 +5,14 @@
 
 	<!-- namespace의 이름은 사용하려는 DAO의 풀패키지명과 동일하게 작성 -->
 	<mapper namespace="com.winter.app.board.qna.QnaDAO">
-		<select id="list" resultType="QnaVO">
-			SELECT * FROM QNA ORDER BY BOARD_REF DESC, BOARD_STEP ASC
+		<select id="list" resultType="QnaVO" parameterType="Pager">
+			SELECT * FROM QNA 
+			ORDER BY BOARD_REF DESC, BOARD_STEP ASC
+			LIMIT #{startIndex }, #{endIndex}
+		</select>
+		
+		<select id="totalCount" resultType="Long">
+			SELECT COUNT(BOARD_NUM) FROM QNA
 		</select>
 		
 		<select id="detail" parameterType="QnaVO" resultType="QnaVO">

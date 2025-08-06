@@ -50,6 +50,28 @@
 						</table>
 						
 						<div>
+							<nav aria-label="Page navigation example">
+							  <ul class="pagination">
+								  <li class="page-item">
+								    <a class="page-link" href="./list?pageNum=${pager.startNum-1 }" aria-label="Previous">
+								      <span aria-hidden="true">&laquo;</span>
+								    </a>
+								  </li>
+								  
+								  <c:forEach begin="${pager.startNum}" end="${pager.endNum}" var="i">
+								  	<li class="page-item"><a class="page-link" href="./list?pageNum=${i }">${i }</a></li>
+								  </c:forEach>
+								  
+								  <li class="page-item">
+								    <a class="page-link" href="./list?pageNum=${pager.endNum+1 }" aria-label="Next">
+								      <span aria-hidden="true">&raquo;</span>
+								    </a>
+								  </li>
+								</ul>
+							</nav>
+						</div>
+						
+						<div>
 							<a href="./add" class="btn btn-outline-primary">글쓰기</a>
 						</div>
 					</div>

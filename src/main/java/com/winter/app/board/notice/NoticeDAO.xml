@@ -5,8 +5,14 @@
 
 	<!-- namespace의 이름은 사용하려는 DAO의 풀패키지명과 동일하게 작성 -->
 	<mapper namespace="com.winter.app.board.notice.NoticeDAO">
-		<select id="list" resultType="NoticeVO">
-			SELECT * FROM NOTICE ORDER BY BOARD_NUM DESC
+		<select id="list" resultType="NoticeVO" parameterType="Pager">
+			SELECT * FROM NOTICE 
+			ORDER BY BOARD_NUM DESC 
+			LIMIT #{startIndex }, #{endIndex}
+		</select>
+	
+		<select id="totalCount" resultType="Long">
+			SELECT COUNT(BOARD_NUM) FROM NOTICE
 		</select>
 	
 		<select id="detail" parameterType="NoticeVO" resultType="NoticeVO">
