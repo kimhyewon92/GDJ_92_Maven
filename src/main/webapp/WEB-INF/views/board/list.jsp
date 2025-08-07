@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Notice List</title>
+<title>${board} List</title>
 <c:import url="/WEB-INF/views/include/head_css.jsp"></c:import>
 </head>
 <body id="page-top">
@@ -31,7 +31,7 @@
 									  <option value="k2" ${pager.kind eq 'k2' ? 'selected':'' }>Contents</option>
 									  <option value="k3" ${pager.kind eq 'k3' ? 'selected':'' }>Writer</option>
 									</select>
-								  <input type="text" class="form-control" value="${pager.keyword}" name="keyword" placeholder="Recipient’s username" aria-label="Recipient’s username" aria-describedby="button-addon2">
+								  <input type="text" class="form-control" value="${pager.keyword}" name="keyword" placeholder="keyword" aria-label="Recipient’s username" aria-describedby="button-addon2">
 								  <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Button</button>
 								</div>
 							</form>
@@ -69,19 +69,19 @@
 							<nav aria-label="Page navigation example">
 							  <ul class="pagination">
 								  <li class="page-item">
-								    <a class="page-link pn" data-pn="${pager.startNum-1 }" aria-label="Previous">
+								    <button class="page-link pn" data-pn="${pager.startNum-1 }" aria-label="Previous">
 								      <span aria-hidden="true">&laquo;</span>
-								    </a>
+								    </button>
 								  </li>
 								  
 								  <c:forEach begin="${pager.startNum}" end="${pager.endNum}" var="i">
-								  	<li class="page-item"><a class="page-link pn" data-pn="${i}">${i }</a></li>
+								  	<li class="page-item"><button class="page-link pn" data-pn="${i}">${i }</button></li>
 								  </c:forEach>
 								  
 								  <li class="page-item">
-								    <a class="page-link pn" data-pn="${pager.endNum+1 }" aria-label="Next">
+								    <button class="page-link pn" data-pn="${pager.endNum+1 }" aria-label="Next">
 								      <span aria-hidden="true">&raquo;</span>
-								    </a>
+								    </button>
 								  </li>
 								</ul>
 							</nav>

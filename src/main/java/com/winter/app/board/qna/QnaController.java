@@ -78,7 +78,7 @@ public class QnaController {
 	}
 	
 	@PostMapping("add")
-	public String insert(QnaVO qnaVO, MultipartFile attaches, Model model) throws Exception {
+	public String insert(QnaVO qnaVO, MultipartFile [] attaches, Model model) throws Exception {
 		int result = qnaService.insert(qnaVO, attaches);
 		
 		String msg = "등록 실패";

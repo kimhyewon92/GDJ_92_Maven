@@ -13,11 +13,11 @@
 			<result column="BOARD_DATE" property="boardDate" />
 			<result column="BOARD_HIT" property="boardHit" />
 			
-			<association property="boardFileVO" javaType="BoardFileVO">
+			<collection property="boardFileVOs" javaType="java.util.List" ofType="BoardFileVO">
 				<id column="FILE_NUM" property="fileNum" />
 				<result column="ORI_NAME" property="oriName" />
 				<result column="SAVE_NAME" property="saveName" />
-			</association>
+			</collection>
 		</resultMap>
 		<select id="list" resultType="QnaVO" parameterType="Pager">
 			SELECT * FROM QNA 
@@ -70,5 +70,9 @@
 		<delete id="delete" parameterType="QnaVO">
 			DELETE FROM QNA
 			WHERE BOARD_NUM = #{boardNum}
+		</delete>
+		
+		<delete id="fileDelete" parameterType="QnaVO">
+			DELETE FROM QNAFILES WHERE BOARD_NUM = #{boardNum}
 		</delete>
 	</mapper>

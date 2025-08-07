@@ -39,23 +39,24 @@ public class NoticeService implements BoardService {
 		return noticeDAO.detail(boardVO);
 	}
 	
-	public int insert(BoardVO boardVO, MultipartFile attaches) throws Exception {
+	public int insert(BoardVO boardVO, MultipartFile [] attaches) throws Exception {
 		int result = noticeDAO.insert(boardVO);
 		
-		if(attaches == null || attaches.isEmpty()) {
-			return result;
+		for(MultipartFile m:attaches) {
+			if(m == null || m.isEmpty()) {
+				continue;
+			}
+			
+			// 1. File을 HDD에 저장
+			String fileName = fileManager.fileSave(upload+board, m);
+			
+			// 2. 저장된 파일의 정보를 DB에 저장
+			BoardFileVO vo = new BoardFileVO();
+			vo.setOriName(m.getOriginalFilename());
+			vo.setSaveName(fileName);
+			vo.setBoardNum(boardVO.getBoardNum());
+			result = noticeDAO.insertFile(vo);
 		}
-		
-		// 1. File을 HDD에 저장
-		String fileName = fileManager.fileSave(upload+board, attaches);
-		
-		// 2. 저장된 파일의 정보를 DB에 저장
-		BoardFileVO vo = new BoardFileVO();
-		vo.setOriName(attaches.getOriginalFilename());
-		vo.setSaveName(fileName);
-		vo.setBoardNum(boardVO.getBoardNum());
-		result = noticeDAO.insertFile(vo);
-		
 		return result;
 	}
 	
@@ -64,6 +65,13 @@ public class NoticeService implements BoardService {
 	}
 	
 	public int delete(BoardVO boardVO) throws Exception {
+		boardVO = noticeDAO.detail(boardVO);
+		
+		for(BoardFileVO vo : boardVO.getBoardFileVOs()) {
+			fileManager.fileDelete(upload+board, vo.getSaveName());
+		}
+		// 제약조건 Cascade로 테이블 다시 만들거나..
+		int result = noticeDAO.fileDelete(boardVO);
 		return noticeDAO.delete(boardVO);
 	}
 }
