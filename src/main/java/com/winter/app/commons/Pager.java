@@ -21,6 +21,12 @@ public class Pager {
 	// Page 번호
 	private Long pageNum;
 	
+	// 검색종류
+	private String kind;
+	
+	// 검색어
+	private String keyword;
+	
 	private Long totalPage;
 	
 	private Long startNum;
@@ -65,6 +71,14 @@ public class Pager {
 		
 		// ----------------------------------------
 		this.makePage();
+	}
+	
+	public String getKeyword() {
+		if(this.keyword == null) {
+			this.keyword="";
+		}
+		
+		return this.keyword;
 	}
 	
 	public Long getStartIndex() {
