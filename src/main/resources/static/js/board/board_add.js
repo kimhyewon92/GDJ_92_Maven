@@ -11,18 +11,30 @@ let count = result.getAttribute("data-file-count");
 
 deleteFile.forEach( (item)=>{
 	item.addEventListener("click", function(){
+		
+		let flag = confirm("정말??")
+		
+		if(!flag){
+			return;
+		}
 		//fetch, axios
 		let params = new URLSearchParams();
-		params.append("fileNum", 2)
+		params.append("fileNum", item.getAttribute("data-file-num"))
 		
 		fetch(`./fileDelete`, {
 			method:"post",
 			body:params
 		})
-		.then(r=>r.json())
+		.then(r=>r.text())
 		.then(r=>{
-			console.log(r)
+			if(r.trim()==1){
+				count--;
+				item.remove();
+			}else {
+				alert('삭제 실패');
+			}
 		})
+		
 	})
 })
 

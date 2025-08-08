@@ -1,5 +1,6 @@
 package com.winter.app.board.notice;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,10 @@ public class NoticeService implements BoardService {
 	public int insert(BoardVO boardVO, MultipartFile [] attaches) throws Exception {
 		int result = noticeDAO.insert(boardVO);
 		
+		if(attaches == null) {
+			return result;
+		}
+		
 		for(MultipartFile m:attaches) {
 			if(m == null || m.isEmpty()) {
 				continue;
@@ -60,8 +65,33 @@ public class NoticeService implements BoardService {
 		return result;
 	}
 	
-	public int update(BoardVO boardVO) throws Exception {
-		return noticeDAO.update(boardVO);
+	public int update(BoardVO boardVO, MultipartFile [] attaches) throws Exception {
+		// 글 내용 먼저 업데이트?
+		int result = noticeDAO.update(boardVO);
+		
+		if(attaches == null) {
+			return result;
+		}
+		
+		if (result > 0) {
+		// 1. 파일을 HDD에 저장
+		// transaction..?
+		
+			for (MultipartFile m : attaches) {
+				if(m == null || m.isEmpty()) {
+					continue;
+				}
+			String fileName = fileManager.fileSave(upload+board, m);
+			
+			// 2. 파일 정보를 FileDB에 저장
+			BoardFileVO vo = new BoardFileVO();
+			vo.setOriName(m.getOriginalFilename());
+			vo.setSaveName(fileName);
+			vo.setBoardNum(boardVO.getBoardNum());
+			result = noticeDAO.insertFile(vo);
+			}
+		}
+		return result;
 	}
 	
 	public int delete(BoardVO boardVO) throws Exception {
@@ -73,5 +103,17 @@ public class NoticeService implements BoardService {
 		// 제약조건 Cascade로 테이블 다시 만들거나..
 		int result = noticeDAO.fileDelete(boardVO);
 		return noticeDAO.delete(boardVO);
+	}
+	
+	@Override
+	public int fileDelete(BoardFileVO boardFileVO) throws Exception {
+		// 1. File 조회
+		boardFileVO = noticeDAO.fileDetail(boardFileVO);
+		
+		// 2. File 삭제
+		boolean result = fileManager.fileDelete(upload+board, boardFileVO.getSaveName());
+		
+		// 3. DB 삭제
+		return noticeDAO.fileDeleteOne(boardFileVO);
 	}
 }

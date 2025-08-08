@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.winter.app.board.BoardFileVO;
 import com.winter.app.board.BoardVO;
 import com.winter.app.commons.Pager;
 
@@ -102,8 +104,8 @@ public class QnaController {
 	}
 
 	@PostMapping("update")
-	public String update(QnaVO qnaVO, Model model) throws Exception {
-		int result = qnaService.update(qnaVO);
+	public String update(QnaVO qnaVO, MultipartFile [] attaches, Model model) throws Exception {
+		int result = qnaService.update(qnaVO, attaches);
 		
 		String msg = "수정 실패";
 		
@@ -135,5 +137,12 @@ public class QnaController {
 		model.addAttribute("url", url);
 		
 		return "commons/result";
+	}
+	
+	@PostMapping("fileDelete")
+	@ResponseBody
+	public int fileDelete(BoardFileVO boardFileVO, Model model) throws Exception {
+		int result = qnaService.fileDelete(boardFileVO);
+		return result;
 	}
 }

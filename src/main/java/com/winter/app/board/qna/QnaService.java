@@ -41,6 +41,10 @@ public class QnaService implements BoardService {
 		//ref값을 update
 		result = qnaDAO.refUpdate(boardVO);
 		
+		if(attaches == null) {
+			return result;
+		}
+		
 		for(MultipartFile m:attaches) {
 			if(m == null || m.isEmpty()) {
 				continue;
@@ -77,12 +81,45 @@ public class QnaService implements BoardService {
 	}
 
 	@Override
-	public int update(BoardVO boardVO) throws Exception {
-		return qnaDAO.update(boardVO);
+	public int update(BoardVO boardVO, MultipartFile [] attaches) throws Exception {
+		int result = qnaDAO.update(boardVO);
+		
+		if(attaches == null) {
+			return result;
+		}
+		
+		if (result > 0) {
+			// 1. 파일을 HDD에 저장
+			// transaction..?
+			
+				for (MultipartFile m : attaches) {
+					if(m == null || m.isEmpty()) {
+						continue;
+					}
+				String fileName = fileManager.fileSave(upload+board, m);
+				
+				// 2. 파일 정보를 FileDB에 저장
+				BoardFileVO vo = new BoardFileVO();
+				vo.setOriName(m.getOriginalFilename());
+				vo.setSaveName(fileName);
+				vo.setBoardNum(boardVO.getBoardNum());
+				result = qnaDAO.insertFile(vo);
+				}
+		}
+		return result;
 	}
 
 	@Override
 	public int delete(BoardVO boardVO) throws Exception {
+		// 해당 글번호를 참조하는 다른글이 있는지 확인
+		// 있으면 해당 글을 삭제하는것이 DB에 남겨두지만 상세페이지 이동이 안되게..
+		// 해당 글의 첨부파일은 삭제
+		// 삭제된 글입니다 표시..
+		
+		if() {
+			
+		}
+		
 		boardVO = qnaDAO.detail(boardVO);
 		
 		for(BoardFileVO vo : boardVO.getBoardFileVOs()) {
@@ -92,4 +129,15 @@ public class QnaService implements BoardService {
 		return qnaDAO.delete(boardVO);
 	}	
 	
+	@Override
+	public int fileDelete(BoardFileVO boardFileVO) throws Exception {
+		// 1. File 조회
+		boardFileVO = qnaDAO.fileDetail(boardFileVO);
+		
+		// 2. File 삭제
+		boolean result = fileManager.fileDelete(upload+board, boardFileVO.getSaveName());
+		
+		// 3. DB 삭제
+		return qnaDAO.fileDeleteOne(boardFileVO);
+	}
 }
