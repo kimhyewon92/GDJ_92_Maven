@@ -12,6 +12,9 @@
 			<result column="BOARD_CONTENTS" property="boardContents" />
 			<result column="BOARD_DATE" property="boardDate" />
 			<result column="BOARD_HIT" property="boardHit" />
+			<result column="BOARD_REF" property="boardRef" />
+			<result column="BOARD_STEP" property="boardStep" />
+			<result column="BOARD_DEPTH" property="boardDepth" />
 			
 			<collection property="boardFileVOs" javaType="java.util.List" ofType="BoardFileVO">
 				<id column="FILE_NUM" property="fileNum" />
@@ -67,10 +70,15 @@
 			WHERE BOARD_NUM = #{boardNum}
 		</update>
 		
-		<delete id="delete" parameterType="QnaVO">
+		<!-- 원래 삭제 -->
+		<!-- <delete id="delete" parameterType="QnaVO">
 			DELETE FROM QNA
 			WHERE BOARD_NUM = #{boardNum}
-		</delete>
+		</delete> -->
+		
+		<delete id="delete" parameterType="QnaVO">
+	  		UPDATE QNA SET BOARD_TITLE=null WHERE BOARD_NUM=#{boardNum}
+	  	</delete>
 		
 		<delete id="fileDelete" parameterType="QnaVO">
 			DELETE FROM QNAFILES WHERE BOARD_NUM = #{boardNum}

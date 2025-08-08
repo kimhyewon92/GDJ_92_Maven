@@ -57,8 +57,8 @@ public class QnaController {
 	}
 	
 	@PostMapping("reply")
-	public String replyUpdateInsert(QnaVO qnaVO, Model model) throws Exception {
-		int result = qnaService.reply(qnaVO);
+	public String replyUpdateInsert(QnaVO qnaVO, MultipartFile [] attaches, Model model) throws Exception {
+		int result = qnaService.reply(qnaVO, attaches);
 		
 		String msg = "답글 등록 실패";
 		

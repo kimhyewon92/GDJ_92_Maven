@@ -55,7 +55,14 @@
 											<c:catch>
 												<c:forEach begin="1" end="${l.boardDepth }">&nbsp;&nbsp;↳&nbsp;&nbsp;</c:forEach>
 											</c:catch>
-											<a href="./detail?boardNum=${l.boardNum }">${l.boardTitle}</a>
+											<c:choose>
+												<c:when test="${empty l.boardTitle}">
+													삭제된 글입니다
+												</c:when>
+												<c:otherwise>										
+													<a href="./detail?boardNum=${l.boardNum }">${l.boardTitle}</a>
+												</c:otherwise>
+											</c:choose>
 										</td>
 										<td>${l.boardWriter}</td>
 										<td>${fn:replace(l.boardDate, 'T', '&nbsp;&nbsp;')}</td>
