@@ -164,4 +164,16 @@ public class QnaService implements BoardService {
 	public BoardFileVO fileDetail(BoardFileVO boardFileVO) throws Exception {
 		return qnaDAO.fileDetail(boardFileVO);
 	}
+
+	@Override
+	public String boardFile(MultipartFile multipartFile) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean boardFileDelete(String fileName) throws Exception {
+		fileName = fileName.substring(fileName.lastIndexOf("/"));
+		return fileManager.fileDelete(upload+board, fileName);
+	}
 }
