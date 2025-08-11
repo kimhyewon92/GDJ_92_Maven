@@ -159,4 +159,9 @@ public class QnaService implements BoardService {
 		// 3. DB 삭제
 		return qnaDAO.fileDeleteOne(boardFileVO);
 	}
+
+	@Override
+	public BoardFileVO fileDetail(BoardFileVO boardFileVO) throws Exception {
+		return qnaDAO.fileDetail(boardFileVO);
+	}
 }

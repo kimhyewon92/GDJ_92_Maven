@@ -114,5 +114,13 @@ public class NoticeController {
 		int result = noticeService.fileDelete(boardFileVO);
 		return result;
 	}
+	
+	@GetMapping("fileDown")
+	public String fileDown(BoardFileVO boardFileVO, Model model) throws Exception {
+		boardFileVO = noticeService.fileDetail(boardFileVO);
+		model.addAttribute("vo", boardFileVO);
+		// custom view가 1번
+		return "fileDownView";
+	}
 }
 

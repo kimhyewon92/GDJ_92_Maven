@@ -145,4 +145,12 @@ public class QnaController {
 		int result = qnaService.fileDelete(boardFileVO);
 		return result;
 	}
+	
+	@GetMapping("fileDown")
+	public String fileDown(BoardFileVO boardFileVO, Model model) throws Exception {
+		boardFileVO = qnaService.fileDetail(boardFileVO);
+		model.addAttribute("vo", boardFileVO);
+		// custom view가 1번
+		return "fileDownView";
+	}
 }

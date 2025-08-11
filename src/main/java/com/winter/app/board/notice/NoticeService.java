@@ -116,4 +116,9 @@ public class NoticeService implements BoardService {
 		// 3. DB 삭제
 		return noticeDAO.fileDeleteOne(boardFileVO);
 	}
+	
+	@Override
+	public BoardFileVO fileDetail(BoardFileVO boardFileVO) throws Exception {
+		return noticeDAO.fileDetail(boardFileVO);
+	}
 }

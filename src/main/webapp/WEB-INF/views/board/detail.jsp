@@ -42,7 +42,7 @@
 								<th>File</th>
 								<c:forEach items="${boardVO.boardFileVOs }" var="f">
 								<td colspan="3">
-									<a href="/files/${board}/${f.saveName}">${f.oriName}</a><br>
+									<a href="./fileDown?fileNum=${f.fileNum}">${f.oriName}</a><br>
 								</c:forEach>
 								</td>
 							</tr>
