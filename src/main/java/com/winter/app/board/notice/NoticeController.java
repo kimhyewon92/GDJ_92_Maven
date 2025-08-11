@@ -60,9 +60,21 @@ public class NoticeController {
 	}
 	
 	@PostMapping("add")
-	public String insert(NoticeVO noticeVO, MultipartFile [] attaches) throws Exception{
+	public String insert(NoticeVO noticeVO, MultipartFile [] attaches, Model model) throws Exception{
 		int result = noticeService.insert(noticeVO, attaches);
-		return "redirect:./list";
+
+		String msg = "등록 실패";
+		
+		if (result > 0) {
+			msg = "등록이 완료되었습니다.";
+		}
+		
+		String url = "./list";
+		
+		model.addAttribute("msg", msg);
+		model.addAttribute("url", url);
+		
+		return "commons/result";
 	}
 	
 	@GetMapping("update")
