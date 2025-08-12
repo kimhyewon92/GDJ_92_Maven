@@ -20,6 +20,11 @@
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Join</span></a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/member/login">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Login</span></a>
+            </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider">

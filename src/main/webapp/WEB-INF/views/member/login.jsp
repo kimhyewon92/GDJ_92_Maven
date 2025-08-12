@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Join</title>
 <c:import url="/WEB-INF/views/include/head_css.jsp"></c:import>
 </head>
 <body id="page-top">
@@ -18,13 +18,22 @@
 				<c:import url="/WEB-INF/views/include/topbar.jsp"></c:import>
 				<div class="container-fluid">
 					<!-- page contents 내용 -->
-					<c:if test="${not empty member }">
-						<h3>${member.name} 님, 반갑습니다!</h3>
-					</c:if>
-					
+					<form method="post" enctype="multipart/form-data">
+						<div class="mb-3">
+						  <label for="id" class="form-label">ID</label>
+						  <input type="text" class="form-control" name="username">
+						</div>
+						<div class="mb-3">
+						  <label for="password" class="form-label">password</label>
+						  <input type="password" class="form-control" name="password">
+						</div>
+
+						<button type="submit" class="btn btn-primary">Login</button>
+					</form>
 				</div>
 			</div>
 			<!-- End Content -->
+			
 			<c:import url="/WEB-INF/views/include/footer.jsp"></c:import>
 		</div>
 		<!-- End of Content Wrapper -->
