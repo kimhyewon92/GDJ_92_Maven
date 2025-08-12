@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+	<!-- namespace의 이름은 사용하려는 DAO의 풀패키지명과 동일하게 작성 -->
+	<mapper namespace="com.winter.app.member.MemberDAO">
+	
+		<insert id="join" parameterType="MemberVO">
+			INSERT INTO MEMBERS
+			VALUES (#{username}, #{password}, #{name}, #{email}, #{phone}, #{birth})
+		</insert>
+		
+		<insert id="profileInsert" parameterType="ProfileVO">
+			INSERT INTO PROFILE
+			VALUES (#{username}, #{oriName}, #{saveName})
+		</insert>
+		
+	</mapper>
