@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.winter.app.commons.FileManager;
+import com.winter.app.transaction.Transaction;
 
 @Service
 public class MemberService {
@@ -22,7 +23,11 @@ public class MemberService {
 	@Value("${board.member}")
 	private String board;
 	
+	@Autowired
+	private Transaction transaction;
+	
 	public int join(MemberVO memberVO, MultipartFile profile) throws Exception {
+		transaction.t();
 		int result = memberDAO.join(memberVO);
 		
 		ProfileVO profileVO = new ProfileVO();
@@ -40,6 +45,8 @@ public class MemberService {
 		}
 		
 		result = memberDAO.profileInsert(profileVO);
+		
+		transaction.t2();
 		return result;
 	}
 }
