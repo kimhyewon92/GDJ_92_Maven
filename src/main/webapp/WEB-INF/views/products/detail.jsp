@@ -49,6 +49,10 @@
 							
 						</div>
 						
+						<div>
+							<button class="btn btn-primary" id="cart">장바구니</button>
+						</div>
+						
 					</div>
 				</div>
 			</div>

@@ -15,9 +15,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.winter.app.board.BoardFileVO;
 import com.winter.app.board.BoardVO;
-import com.winter.app.commons.FileManager;
 import com.winter.app.commons.Pager;
+import com.winter.app.member.MemberVO;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
@@ -61,9 +62,10 @@ public class NoticeController {
 	}
 	
 	@PostMapping("add")
-	public String insert(NoticeVO noticeVO, MultipartFile [] attaches, Model model) throws Exception{
+	public String insert(NoticeVO noticeVO, MultipartFile [] attaches, Model model, HttpSession session) throws Exception{
+		MemberVO memberVO = (MemberVO) session.getAttribute("member");
 		int result = noticeService.insert(noticeVO, attaches);
-
+		noticeVO.setBoardWriter(memberVO.getUsername());
 		String msg = "등록 실패";
 		
 		if (result > 0) {

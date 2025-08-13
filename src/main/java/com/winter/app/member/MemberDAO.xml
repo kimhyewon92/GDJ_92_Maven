@@ -26,21 +26,21 @@
   		</collection>  		  		
   	</resultMap>
   
-  	<select id="login" parameterType="MemberVO" resultMap="loginResult">
-  		SELECT M.*, P.*, R.*
-  		FROM MEMBERS M
-  			 INNER JOIN
-  			 PROFILE P
-  			 USING(USERNAME)
-  			 INNER JOIN
-  			 MEMBER_ROLE MR
-  			 USING(USERNAME)
-  			 INNER JOIN
-  			 ROLE R
-  			 USING(ROLE_NUM)
-  		WHERE USERNAME=#{username}	 
-  	</select>
-	
+	  	<select id="login" parameterType="MemberVO" resultMap="loginResult">
+	  		SELECT M.*, P.*, R.*
+	  		FROM MEMBERS M
+	  			 INNER JOIN
+	  			 PROFILE P
+	  			 USING(USERNAME)
+	  			 INNER JOIN
+	  			 MEMBER_ROLE MR
+	  			 USING(USERNAME)
+	  			 INNER JOIN
+	  			 ROLE R
+	  			 USING(ROLE_NUM)
+	  		WHERE USERNAME=#{username}	 
+	  	</select>
+		
 		<insert id="join" parameterType="MemberVO">
 			INSERT INTO MEMBERS
 			VALUES (#{username}, #{password}, #{name}, #{email}, #{phone}, #{birth}, 1, 1, 1, 1)
