@@ -56,4 +56,22 @@
 			VALUES (#{username}, #{roleNum})
 		</insert>
 		
+		<insert id="cartAdd" parameterType="Map">
+	  		INSERT INTO CART VALUES(#{username}, #{productNum})
+	  	</insert>
+	  	
+	  	<select id="cartList" resultType="ProductVO" parameterType="MemberVO">
+			SELECT *
+			FROM PRODUCTS P
+				 INNER JOIN
+				 PRODUCTS_KIND K
+				 USING(KIND_NUM)
+			WHERE 
+				P.PRODUCT_NUM IN 
+					(
+						SELECT PRODUCT_NUM FROM CART 
+						WHERE USERNAME=#{username}
+					)	 
+  		</select>
+		
 	</mapper>

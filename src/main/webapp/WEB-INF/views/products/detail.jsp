@@ -50,7 +50,7 @@
 						</div>
 						
 						<div>
-							<button class="btn btn-primary" id="cart">장바구니</button>
+							<button class="btn btn-primary" id="cartAdd" data-product-num="${detailVO.productNum}">장바구니</button>
 						</div>
 						
 					</div>
@@ -63,6 +63,6 @@
 		
 	</div>
 	<c:import url="/WEB-INF/views/include/tail.jsp"></c:import>
-	<script type="text/javascript" src="/js/board/board_detail.js"></script>
+	<script type="text/javascript" src="/js/product/product_detail.js"></script>
 </body>
 </html>
