@@ -44,13 +44,22 @@
 								<input type="hidden" name="productNum" value="${detailVO.productNum}">
 							</form>
 							
-							<button class="btn btn-outline-success action" data-kind="u">Update</button>
-							<button class="btn btn-outline-danger action" data-kind="d">Delete</button>
+							<div>
+								<form action="./delete" method="post">
+									<input type="hidden" name="productNum" value="${vo.productNum}">
+									<a class="btn btn-success" href="./update?productNum=${vo.productNum}">Update	</a>
+									<button class="btn btn-danger">Delete</button>
+								</form>
+							</div>
 							
 						</div>
 						
 						<div>
 							<button class="btn btn-primary" id="cartAdd" data-product-num="${detailVO.productNum}">장바구니</button>
+							<form action="/account/add" method="post">
+								<input type="hidden" name="productNum" value="${detailVO.productNum}">
+								<button class="btn btn-primary" id="add" data-product-num="${detailVO.productNum}">가입</button>
+							</form>
 						</div>
 						
 					</div>

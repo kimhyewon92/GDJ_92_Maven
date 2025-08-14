@@ -4,6 +4,7 @@
 
 
 const cartAdd = document.getElementById("cartAdd")
+const add = document.getElementById("add")
 
 
 cartAdd.addEventListener("click", ()=>{

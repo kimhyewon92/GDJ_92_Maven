@@ -23,7 +23,7 @@
   		<collection property="roleVOs" javaType="java.util.List" ofType="RoleVO">
   			<id column="ROLE_NUM" property="roleNum"/>
   			<result column="ROLE_NAME" property="roleName"/>
-  		</collection>  		  		
+  		</collection>
   	</resultMap>
   
 	  	<select id="login" parameterType="MemberVO" resultMap="loginResult">
@@ -70,8 +70,21 @@
 				P.PRODUCT_NUM IN 
 					(
 						SELECT PRODUCT_NUM FROM CART 
-						WHERE USERNAME=#{username}
+						WHERE USERNAME = #{username}
 					)	 
   		</select>
+		
+		<delete id="cartDelete" parameterType="java.util.Map">
+	  		DELETE FROM CART 
+	  		<where>
+	  			USERNAME=#{username}
+	  			AND  			
+	  			PRODUCT_NUM
+	  			IN
+	  			<foreach collection="list" item="item" open="(" close=")" separator=",">
+	  				#{item}
+	  			</foreach>
+	  		</where>
+  		</delete>
 		
 	</mapper>
