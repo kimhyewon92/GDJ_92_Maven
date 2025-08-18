@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-
+import com.winter.app.home.HomeController;
 import com.winter.app.member.validation.AddGroup;
 import com.winter.app.member.validation.UpdateGroup;
 import com.winter.app.products.ProductVO;
@@ -28,9 +28,15 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping(value="/member/*")
 @Slf4j
 public class MemberController {
+
+    private final HomeController homeController;
 	
 	@Autowired
 	private MemberService memberService;
+
+    MemberController(HomeController homeController) {
+        this.homeController = homeController;
+    }
 	
 	@GetMapping("join")
 	public void join(MemberVO memberVO) throws Exception {}
@@ -75,12 +81,22 @@ public class MemberController {
 	}
 	
 	@PostMapping("update")
-	public String update(@Validated(UpdateGroup.class) MemberVO memberVO, BindingResult bindingResult, MultipartFile profile) throws Exception {
+	public String update(@Validated(UpdateGroup.class) MemberVO memberVO, BindingResult bindingResult, MultipartFile profile, HttpSession session) throws Exception {
 		
 		if(bindingResult.hasErrors()) {
 			return "member/memberUpdate";
 		}
 		
+		MemberVO sessionMember =(MemberVO)session.getAttribute("member");
+		memberVO.setUsername(sessionMember.getUsername());
+		int result = memberService.update(memberVO);
+		
+		// 업데이트된 정보로 확인이 안되어서..
+		if(result>0) {
+			memberVO.setPassword(sessionMember.getPassword());
+			memberVO = memberService.login(memberVO);
+			session.setAttribute("member", memberVO);
+		}
 		return "redirect:./detail";
 	}
 	
