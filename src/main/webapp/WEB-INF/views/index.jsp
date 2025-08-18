@@ -19,6 +19,8 @@
 				<div class="container-fluid">
 					<!-- page contents 내용 -->
 					<h1>Index </h1>
+					<h3>Add GitHub</h3>
+
 				</div>
 			</div>
 			<!-- End Content -->
