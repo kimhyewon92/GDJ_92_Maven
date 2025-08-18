@@ -20,6 +20,7 @@
 					<!-- page contents 내용 -->
 					<h1>Index </h1>
 					<h3>Add GitHub</h3>
+					<h3>add Github2</h3>
 
 				</div>
 			</div>
