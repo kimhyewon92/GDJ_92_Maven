@@ -182,26 +182,27 @@
 					Log
 				</a>
 				<div class="dropdown-divider"></div>
-				<a class="dropdown-item" href="#" data-toggle="modal"
-					data-target="#logoutModal"> <i
-					class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+				<a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+					<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
 					Logout
 				</a>
-			</div></li>
-
+			</div>
+		</li>
 	</ul>
 </c:if>
 
 <c:if test="${empty member}">
 	<ul class="navbar-nav ml-auto">
-	<li class="nav-item mx-2">
-		<a href="/member/login">Login</a>
-	</li>	
+		<li class="nav-item mx-2">
+			<a href="/member/login">Login</a>
+		</li>	
 	
-		<li class="nav-item dropdown no-arrow mx-2"><a href="/member/join">Join</a></li>
+		<li class="nav-item dropdown no-arrow mx-2">
+			<a href="/member/join">Join</a>
+		</li>
 	</ul>
-
 </c:if>
+
 	<ul>
 		<li><a href="/?lang=ko">KO</a></li>
 		<li><a href="/?lang=en">EN</a></li>

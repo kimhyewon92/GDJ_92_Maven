@@ -48,7 +48,7 @@
 		
 		<insert id="profileInsert" parameterType="ProfileVO">
 			INSERT INTO PROFILE
-			VALUES (#{username}, #{oriName}, #{saveName})
+			VALUES (#{username}, #{saveName}, #{oriName})
 		</insert>
 		
 		<insert id="addRole" parameterType="java.util.Map">
