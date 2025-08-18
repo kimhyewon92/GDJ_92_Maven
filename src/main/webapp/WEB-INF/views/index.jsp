@@ -29,7 +29,7 @@
 							<spring:message code="user.info" arguments="${member.username }, ${member.email }" argumentSeparator="," />
 						</h3>
 					</c:if>
-					
+
 				</div>
 			</div>
 			<!-- End Content -->
