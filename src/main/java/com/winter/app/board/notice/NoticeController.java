@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +20,7 @@ import com.winter.app.commons.Pager;
 import com.winter.app.member.MemberVO;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
@@ -56,16 +58,23 @@ public class NoticeController {
 		return "board/detail";
 	}
 	
+	// 둘 중에 하나 쓰기 modelAttribute..
 	@GetMapping("add")
-	public String insert() {
+	public String insert(@ModelAttribute("boardVO") BoardVO noticeVO, Model model) {
+//		model.addAttribute("boardVO", new NoticeVO());
 		return "board/add";
 	}
 	
 	@PostMapping("add")
-	public String insert(NoticeVO noticeVO, MultipartFile [] attaches, Model model, HttpSession session) throws Exception{
+	public String insert(@Valid BoardVO noticeVO, BindingResult bindingResult, MultipartFile [] attaches, Model model, HttpSession session) throws Exception{
+		
+		if(bindingResult.hasErrors()) {
+			return "board/add";
+		}
+		
 		MemberVO memberVO = (MemberVO) session.getAttribute("member");
-		int result = noticeService.insert(noticeVO, attaches);
 		noticeVO.setBoardWriter(memberVO.getUsername());
+		int result = noticeService.insert(noticeVO, attaches);
 		String msg = "등록 실패";
 		
 		if (result > 0) {

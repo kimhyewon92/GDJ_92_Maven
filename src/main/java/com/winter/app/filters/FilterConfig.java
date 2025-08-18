@@ -22,7 +22,7 @@ public class FilterConfig implements WebMvcConfigurer {
 	}
 	
 	// 아래처럼 여러개 만들어서 하면됨..
-	@Bean
+	//@Bean
 	FilterRegistrationBean<Filter> adminCheckFilter(){
 		FilterRegistrationBean<Filter> fr = new FilterRegistrationBean<>();
 		

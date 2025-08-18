@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%@ taglib prefix="fn" uri="jakarta.tags.functions" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,14 +22,15 @@
 				<c:import url="/WEB-INF/views/include/topbar.jsp"></c:import>
 				<div class="container-fluid">
 					<!-- page contents 내용 -->
-					<form method="post" enctype="multipart/form-data">
-						<input type="hidden" name="boardNum" value="${boardVO.boardNum }">
+					<form:form method="post" modelAttribute="boardVO" enctype="multipart/form-data">
+						<form:hidden path="boardNum" />
 						<div class="mb-8">
 							<span>${member.username }</span>
 						</div>
 						<div class="mb-3">
 						  <label for="exampleInputEmail1" class="form-label">Title</label>
-						  <input type="text" class="form-control" id="exampleInputEmail1" name="boardTitle" aria-describedby="emailHelp" value="${boardVO.boardTitle }">
+						  <form:input path="boardTitle" cssClass="form-control"/>
+						  <form:errors path="boardTitle"></form:errors>
 						</div>
 						<div class="mb-3">
 							<label for="contents" class="form-label">Contents</label>
@@ -50,7 +52,7 @@
 						</div>
 
 						<button type="submit" class="btn btn-primary">Submit</button>
-					</form>
+					</form:form>
 				</div>
 			</div>
 			<!-- End Content -->
