@@ -26,7 +26,7 @@ public class FilterConfig implements WebMvcConfigurer {
 	FilterRegistrationBean<Filter> adminCheckFilter(){
 		FilterRegistrationBean<Filter> fr = new FilterRegistrationBean<>();
 		
-		fr.setFilter(new AdminCheckFilter());
+//		fr.setFilter(new AdminCheckFilter());
 		fr.addUrlPatterns("/notice/add", "/notice/update", "/notice/delete");
 		fr.setOrder(1);
 		

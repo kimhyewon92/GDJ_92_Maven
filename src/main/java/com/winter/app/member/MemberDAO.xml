@@ -96,4 +96,10 @@
 			 WHERE USERNAME = #{username};
   		</update>
 		
+		<update id="passwordUpdate" parameterType="MemberVO">
+			UPDATE MEMBERS
+			SET PASSWORD=#{password}
+			WHERE USERNAME=#{username}
+		</update>
+		
 	</mapper>

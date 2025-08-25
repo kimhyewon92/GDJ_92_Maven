@@ -1,7 +1,13 @@
 package com.winter.app.member;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import com.winter.app.member.validation.AddGroup;
 import com.winter.app.member.validation.UpdateGroup;
@@ -19,7 +25,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class MemberVO {
+public class MemberVO implements UserDetails{
 	
 	@NotBlank(message = "ID는 필수입니다.", groups = AddGroup.class)
 	private String username;
@@ -34,6 +40,7 @@ public class MemberVO {
 	private String email;
 //	@Pattern(regexp ="")
 	private String phone;
+
 	@NotNull
 	// notempty, notblank 는 안됨 (문자열..)
 	@Past(groups = {AddGroup.class, UpdateGroup.class})
@@ -46,4 +53,18 @@ public class MemberVO {
 	private ProfileVO profileVO;
 	
 	private List<RoleVO> roleVOs;
+	
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO Auto-generated method stub
+		List<GrantedAuthority> list = new ArrayList<>();
+		
+		for (RoleVO roleVO : roleVOs) {
+			list.add(new SimpleGrantedAuthority(roleVO.getRoleName()));
+		}
+		
+		return list;
+	}
+	
+	
 }

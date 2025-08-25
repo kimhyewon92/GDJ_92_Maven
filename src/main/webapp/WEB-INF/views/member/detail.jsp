@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,12 +19,13 @@
 				<c:import url="/WEB-INF/views/include/topbar.jsp"></c:import>
 				<div class="container-fluid">
 					<!-- page contents 내용 -->
-					<p>${member.username }</p>
-					<p>${member.name }</p>
-					<p>${member.email }</p>
-					<p>${member.phone }</p>
-					<p>${member.birth }</p>
-					<img src="/files/member/${member.profileVO.saveName }">
+					<sec:authentication property="principal" var="vo"/>
+					<p>${vo.username }</p>
+					<p>${vo.name }</p>
+					<p>${vo.email }</p>
+					<p>${vo.phone }</p>
+					<p>${vo.birth }</p>
+					<img src="/files/member/${vo.profileVO.saveName }">
 									
 				</div>
 			</div>

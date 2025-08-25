@@ -56,22 +56,24 @@ public class MemberController {
 	
 	@GetMapping("login")
 	public void login() throws Exception {}
+
+// config 사용, 이제 안씀 -> security filter 대신함
+//	@PostMapping("login")
+//	public String login(MemberVO memberVO, HttpSession session) throws Exception{
+//		memberVO = memberService.login(memberVO);
+//		
+//		if(memberVO != null) {
+//			session.setAttribute("member", memberVO);
+//		}
+//		return "redirect:/";
+//	}
 	
-	@PostMapping("login")
-	public String login(MemberVO memberVO, HttpSession session) throws Exception{
-		memberVO = memberService.login(memberVO);
-		
-		if(memberVO != null) {
-			session.setAttribute("member", memberVO);
-		}
-		return "redirect:/";
-	}
-	
-	@GetMapping("logout")
-	public String logout(HttpSession session) throws Exception {
-		session.invalidate();
-		return "redirect:/";
-	}
+	//spring security 가 대신
+//	@GetMapping("logout")
+//	public String logout(HttpSession session) throws Exception {
+//		session.invalidate();
+//		return "redirect:/";
+//	}
 	
 	@GetMapping("update")
 	public String update(HttpSession session, Model model) throws Exception {
@@ -94,8 +96,8 @@ public class MemberController {
 		// 업데이트된 정보로 확인이 안되어서..
 		if(result>0) {
 			memberVO.setPassword(sessionMember.getPassword());
-			memberVO = memberService.login(memberVO);
-			session.setAttribute("member", memberVO);
+//			memberVO = memberService.login(memberVO);
+//			session.setAttribute("member", memberVO);
 		}
 		return "redirect:./detail";
 	}
