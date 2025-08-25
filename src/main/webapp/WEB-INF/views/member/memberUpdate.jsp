@@ -20,20 +20,21 @@
 				<c:import url="/WEB-INF/views/include/topbar.jsp"></c:import>
 				<div class="container-fluid">
 					<!-- page contents 내용 -->
+					<sec:authentication property="principal" var="memberVO"/>
 					<form:form method="post" modelAttribute="memberVO" enctype="multipart/form-data">
 						<div class="mb-3">
 						  <label for="name" class="form-label">name</label>
-						  <form:input path="name" cssClass="form-control"/>
+						  <form:input path="name" cssClass="form-control" value="${memberVO.name }"/>
 						  <form:errors path="name"></form:errors>
 						</div>
 						<div class="mb-3">
 						  <label for="email" class="form-label">email</label>
-						  <form:input path="email" cssClass="form-control"/>
+						  <form:input path="email" cssClass="form-control" value="${memberVO.email }"/>
 						  <form:errors path="email"></form:errors>
 						</div>
 						<div class="mb-3">
 						  <label for="phone" class="form-label">phone</label>
-						  <form:input path="phone" cssClass="form-control"/>
+						  <form:input path="phone" cssClass="form-control" value="${memberVO.phone }"/>
 						</div>
 						<div class="mb-3">
 						  <label for="birth" class="form-label">birth</label>

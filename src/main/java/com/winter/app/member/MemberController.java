@@ -1,5 +1,6 @@
 package com.winter.app.member;
 
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -76,28 +77,27 @@ public class MemberController {
 //	}
 	
 	@GetMapping("update")
-	public String update(HttpSession session, Model model) throws Exception {
-		MemberVO memberVO =(MemberVO)session.getAttribute("member");
-		model.addAttribute("memberVO", memberVO);
+	public String update(Principal principal, MemberVO memberVO, Model model) throws Exception {
+//		MemberVO memberVO =(MemberVO)session.getAttribute("member");
 		return "member/memberUpdate";
 	}
 	
 	@PostMapping("update")
-	public String update(@Validated(UpdateGroup.class) MemberVO memberVO, BindingResult bindingResult, MultipartFile profile, HttpSession session) throws Exception {
+	public String update(@Validated(UpdateGroup.class) MemberVO memberVO, BindingResult bindingResult, MultipartFile profile, Principal principal) throws Exception {
 		
 		if(bindingResult.hasErrors()) {
 			return "member/memberUpdate";
 		}
 		
-		MemberVO sessionMember =(MemberVO)session.getAttribute("member");
-		memberVO.setUsername(sessionMember.getUsername());
+//		MemberVO sessionMember =(MemberVO)session.getAttribute("member");
+//		memberVO.setUsername(sessionMember.getUsername());
 		int result = memberService.update(memberVO);
 		
 		// 업데이트된 정보로 확인이 안되어서..
 		if(result>0) {
 			memberVO.setPassword(sessionMember.getPassword());
-//			memberVO = memberService.login(memberVO);
-//			session.setAttribute("member", memberVO);
+			memberVO = memberService.login(memberVO);
+			session.setAttribute("member", memberVO);
 		}
 		return "redirect:./detail";
 	}
