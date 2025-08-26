@@ -2,8 +2,10 @@ package com.winter.app.configs;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
@@ -25,8 +27,25 @@ public class SecurityConfig {
 					;
 		};
 		//여기까지 설정하면 spring security 로그인페이지는 뜨지 않고 localhost 페이지 나옴
-				
-				
+	}		
+	
+	//인증(Authentication)과 권한(Authorization)의 설정
+	@Bean
+	SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
+		
+		httpSecurity
+		//CORS(Cross-Origin Resource Sharing) 기능 비활성화
+		//람다 방식으로 CORS 설정을 커스터마이징할 수 있게 해주는 오버로드 메서드
+		//cors() 이렇게만 쓰면 기본 CORS 설정을 활성화 (커스터마이징 X)
+		//브라우저에서 다른 도메인(예: 프론트앱:3000 → 백엔드:8080) 요청이 거부될 수 있음
+		.cors(cors-> cors.disable()) // "CORS 켜줄게, 근데 내가 직접 설정할게"
+		//CSRF(Cross Site Request Forgery) 보호 비활성화
+		//POST/PUT 요청 시 CSRF 토큰 없이도 요청 가능 (보안적으로 위험할 수 있음)
+		.csrf(csrf-> csrf.disable())
+		;
+		
+		return httpSecurity.build();
+			
 	}
 	
 }
