@@ -33,19 +33,30 @@ public class SecurityConfig {
 	@Bean
 	SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
 		
+		//인증
 		httpSecurity
-		//CORS(Cross-Origin Resource Sharing) 기능 비활성화
-		//람다 방식으로 CORS 설정을 커스터마이징할 수 있게 해주는 오버로드 메서드
-		//cors() 이렇게만 쓰면 기본 CORS 설정을 활성화 (커스터마이징 X)
-		//브라우저에서 다른 도메인(예: 프론트앱:3000 → 백엔드:8080) 요청이 거부될 수 있음
-		.cors(cors-> cors.disable()) // "CORS 켜줄게, 근데 내가 직접 설정할게"
-		//CSRF(Cross Site Request Forgery) 보호 비활성화
-		//POST/PUT 요청 시 CSRF 토큰 없이도 요청 가능 (보안적으로 위험할 수 있음)
-		.csrf(csrf-> csrf.disable())
-		;
-		
-		return httpSecurity.build();
+			//CORS(Cross-Origin Resource Sharing) 기능 비활성화
+			//람다 방식으로 CORS 설정을 커스터마이징할 수 있게 해주는 오버로드 메서드
+			//cors() 이렇게만 쓰면 기본 CORS 설정을 활성화 (커스터마이징 X)
+			//브라우저에서 다른 도메인(예: 프론트앱:3000 → 백엔드:8080) 요청이 거부될 수 있음
+			.cors(cors-> cors.disable()) // "CORS 켜줄게, 근데 내가 직접 설정할게"
+			//CSRF(Cross Site Request Forgery) 보호 비활성화
+			//POST/PUT 요청 시 CSRF 토큰 없이도 요청 가능 (보안적으로 위험할 수 있음)
+			.csrf(csrf-> csrf.disable())
 			
+			//권한
+			//특정 URL접근에 대한 권한 설정
+			.authorizeHttpRequests(auth->{
+				auth
+					.requestMatchers("/notice/add", "/notice/update", "/notice/delete").hasRole("ADMIN")
+					.requestMatchers("/products/add", "/products/update", "/products/delete").hasAnyRole("MANAGER", "ADMIN")
+					.requestMatchers("/member/detail", "/member/logout", "/member/update", "/member/delete").authenticated()
+					.anyRequest().permitAll() //맨 위에 두면 아래 조건은 전혀 적용되지 않아요.
+					;
+			})
+			;
+			
+		return httpSecurity.build();
 	}
 	
 }
