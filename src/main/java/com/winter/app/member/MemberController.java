@@ -56,7 +56,13 @@ public class MemberController {
 	}
 	
 	@GetMapping("login")
-	public void login() throws Exception {}
+	public String login(Principal principal) throws Exception {
+		if(principal != null) {
+			return "redirect:/";
+		}
+		
+		return "member/login";
+	}
 
 // config 사용, 이제 안씀 -> security filter 대신함
 //	@PostMapping("login")

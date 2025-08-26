@@ -54,6 +54,11 @@ public class MemberVO implements UserDetails{
 	
 	private List<RoleVO> roleVOs;
 	
+	//accountNonExpired : DisabledException: 유효하지 않은 사용자입니다.
+	//enabled : AccountExpiredException: 사용자 계정의 유효 기간이 만료 되었습니다.
+	//accountNonLocked : LockedException: 사용자 계정이 잠겨 있습니다.
+	//credentialsNonExpired : CredentialsExpiredException: 자격 증명 유효 기간이 만료되었습니다.
+	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub

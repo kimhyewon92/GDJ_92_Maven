@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,6 +41,7 @@ public class NoticeController {
 	}
 	
 	// @ModelAttribute Pager pager 이렇게.. jsp페이지에서는 타입앞글자 소문자로 자동저장됨..
+//	@CrossOrigin
 	@GetMapping("list")
 	public String list(Pager pager, Model model) throws Exception{
 		// model: spring 리퀘스트 라이프사이클 유사, 스프링 컨트롤러에서 jsp로 전달할때 사용, 매개변수에 선언
