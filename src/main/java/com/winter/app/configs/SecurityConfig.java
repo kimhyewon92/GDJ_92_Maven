@@ -54,8 +54,20 @@ public class SecurityConfig {
 					.anyRequest().permitAll() //맨 위에 두면 아래 조건은 전혀 적용되지 않아요.
 					;
 			})
+			
+			//form 관련 설정
+			.formLogin(form->{
+				form
+					.loginPage("/member/login")
+					//.usernameParameter("username") //기본 설정된 이름이라 주석
+					//.passwordParameter("password") //기본 설정된 이름이라 주석
+					.defaultSuccessUrl("/") //로그인 성공시 redirect 어디로 보낼지
+					.failureUrl("/member/login") //로그인 실패시 redirect 어디로 보낼지
+					;
+			})
 			;
 			
+		// 빌드하면 위 내용이 들어간 타입이 나온다.
 		return httpSecurity.build();
 	}
 	
