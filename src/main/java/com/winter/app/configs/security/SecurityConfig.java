@@ -112,6 +112,13 @@ public class SecurityConfig {
 				.expiredUrl("/member/login") //redirect
 				;
 			})
+			
+			.oauth2Login((o)->{
+				o.userInfoEndpoint((user)->{
+					user.userService(memberService);
+				});
+			})
+			
 			;
 		// 빌드하면 위 내용이 들어간 타입이 나온다..
 		return httpSecurity.build();

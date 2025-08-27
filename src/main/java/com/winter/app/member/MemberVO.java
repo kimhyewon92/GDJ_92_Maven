@@ -4,10 +4,12 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.oauth2.core.user.OAuth2User;
 
 import com.winter.app.member.validation.AddGroup;
 import com.winter.app.member.validation.UpdateGroup;
@@ -25,7 +27,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-public class MemberVO implements UserDetails{
+public class MemberVO implements UserDetails, OAuth2User {
 	
 	@NotBlank(message = "ID는 필수입니다.", groups = AddGroup.class)
 	private String username;
@@ -54,6 +56,14 @@ public class MemberVO implements UserDetails{
 	
 	private List<RoleVO> roleVOs;
 	
+	// ---------------------------- Social
+	
+	private Map<String, Object> attributes;
+	
+	private String accessToken;
+	
+	private String sns;
+	
 	//accountNonExpired : DisabledException: 유효하지 않은 사용자입니다.
 	//enabled : AccountExpiredException: 사용자 계정의 유효 기간이 만료 되었습니다.
 	//accountNonLocked : LockedException: 사용자 계정이 잠겨 있습니다.
@@ -70,6 +80,7 @@ public class MemberVO implements UserDetails{
 		
 		return list;
 	}
+
 	
 	
 }

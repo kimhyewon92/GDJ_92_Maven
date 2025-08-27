@@ -139,8 +139,9 @@ public class MemberController {
 		return "redirect:./cartList";
 	}
 	
-	@GetMapping("kakaoLogin")
-	public void kakaoLogin() throws Exception{
-		
-	}
+	// 이제 이쪽으로 안오고 spring 이 대신 해줄거임
+//	@GetMapping("kakaoLogin")
+//	public void kakaoLogin() throws Exception{
+//		
+//	}
 }
