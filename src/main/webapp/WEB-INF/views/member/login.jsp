@@ -41,6 +41,10 @@
 
 						<button type="submit" class="btn btn-primary">Login</button>
 					</form>
+					
+					<div>
+						<a class="btn btn-warning" href="/member/kakaoLogin">카카오로그인</a>
+					</div>
 				</div>
 			</div>
 			<!-- End Content -->
