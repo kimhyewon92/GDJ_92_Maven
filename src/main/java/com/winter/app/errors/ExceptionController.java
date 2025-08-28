@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class ExceptionController {
 
 	@ExceptionHandler(exception = NullPointerException.class)
-	public String error(Model model) { //model에 에러메세지 작성하여 보내기
+	public String error(Model model, NullPointerException ex) { //model에 에러메세지 작성하여 보내기
+//		ex.getMessage();
 		return "errors/error";
 	}
 	
