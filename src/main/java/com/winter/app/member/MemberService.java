@@ -85,6 +85,8 @@ public class MemberService extends DefaultOAuth2UserService implements UserDetai
 		LinkedHashMap<String, Object> m = (LinkedHashMap<String, Object>)map.get("properties");
 		log.info("{}", m);
 		MemberVO memberVO = new MemberVO();
+		memberVO.setName(user.getName());
+		
 		memberVO.setAccessToken(userRequest.getAccessToken().getTokenValue());
 		
 		memberVO.setUsername(m.get("nickname").toString());

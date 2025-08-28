@@ -28,6 +28,9 @@
 					<img src="/files/member/${vo.profileVO.saveName }">
 									
 				</div>
+				<div>
+					<a href="./delete">탈퇴</a>
+				</div>
 			</div>
 			<!-- End Content -->
 			<c:import url="/WEB-INF/views/include/footer.jsp"></c:import>
