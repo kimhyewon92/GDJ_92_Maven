@@ -30,15 +30,15 @@
 							<spring:message code="user.info" arguments="${member.username }, ${member.email }" argumentSeparator="," />
 						</h3>
 					</c:if> --%>
-<%-- 					<sec:authorize access="isAuthenticated()"> --%>
-<%-- 						<h3><sec:authentication property="name" /> 님, 반갑습니다!</h3> --%>
+					<sec:authorize access="isAuthenticated()">
+						<h3><sec:authentication property="name" /> 님, 반갑습니다!</h3>
 
-<!-- 						<h3> -->
-<%-- 							<sec:authentication property="principal" var="vo"/> --%>
-<%-- 							${vo.username} ${vo.email} --%>
+						<h3>
+							<sec:authentication property="principal" var="vo"/>
+							${vo.username} ${vo.email}
 							
-<!-- 						</h3>							 -->
-<%-- 					</sec:authorize> --%>
+						</h3>							
+					</sec:authorize>
 				</div>
 			</div>
 			<!-- End Content -->

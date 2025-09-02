@@ -19,7 +19,7 @@
 				<div class="container-fluid">
 					<!-- page contents 내용 -->
 					<h3>${param.failMessage }</h3>
-					<form method="post" enctype="multipart/form-data">
+					<form method="post" action="loginProcess" enctype="multipart/form-data">
 						<div class="mb-3">
 						  <label for="id" class="form-label">ID</label>
 						  <input type="text" value="${cookie.rememberId.value}" class="form-control" name="username">

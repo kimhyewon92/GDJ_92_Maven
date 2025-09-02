@@ -3,15 +3,17 @@ package com.winter.app.configs.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.winter.app.member.MemberService;
 
 @Configuration
+//@EnableWebSecurity(debug = true)
 @EnableWebSecurity
 public class SecurityConfig {
 	
@@ -29,6 +31,12 @@ public class SecurityConfig {
 	
 	@Autowired
 	private MemberService memberService;
+	
+	@Autowired
+	private JwtTokenManager jwtTokenManager; //token 생성하고 검증하는 역할..
+	
+	@Autowired
+	private AuthenticationConfiguration authenticationConfiguration;
 	
 	@Bean
 	WebSecurityCustomizer customizer() {
@@ -66,52 +74,60 @@ public class SecurityConfig {
 			// form 관련 설정
 			// 개발자가 로그인 검증을 하지 않는다, Security Filter에서 검증
 			.formLogin(form->{
-				form
-					.loginPage("/member/login")
-//					.usernameParameter("username") //기본설정된 이름이라 주석해도 됨
-//					.passwordParameter("password") //기본설정된 이름이라 주석해도 됨
-//					.defaultSuccessUrl("/") //로그인 성공시 리다이렉트로 어디로 보낼건지..successHandler 쓸땐 안쓰기
-					// .successForwardUrl("/") // forward 보냄.. 참고로
-//					.successHandler(new LoginSuccessHandler()) //defaultSuccessUrl쓸땐 안쓰기
-					.successHandler(loginSuccessHandler) //또는 위에 autowired, defaultSuccessUrl쓸땐 안쓰기
-//					.failureUrl("/member/login") //로그인 실패시 리다이렉트로 어디로 보낼지, failureHandler쓸땐 안쓰기
-//					.failureForwardUrl("/") //forward 보냄.. 참고로
-					.failureHandler(loginFailHandler); //failureUrl쓸땐 안쓰기
-			})
-			//logout 설정
-			// 개발자가 아닌, Security Filter에서 처리
-			.logout((logout)->{
-				logout
-					.logoutUrl("/member/logout")
-					.addLogoutHandler(addLogoutHandler)
-					.logoutSuccessHandler(addLogoutSuccessHandler)
-//					.logoutSuccessHandler(null)
-					//.logoutRequestMatcher(new AntPathRequestMatcher("/member/logout")); deprecated 되있음
-					.invalidateHttpSession(true) //세션 유지시간을 0으로 맞춰서 지우기
-					.deleteCookies("JSESSIONID") //추가적으로 쿠키 지우고싶을때
-					.logoutSuccessUrl("/") //로그아웃 성공시 리다이렉트로 어디로 보낼건지..
-					;
-			})
-			
-			.rememberMe((remember)->{
-				remember
-					.rememberMeParameter("remember-me") //기본설정된 이름이라 주석해도 됨
-					.tokenValiditySeconds(30)
-					.key("rememberkey")
-					.userDetailsService(memberService)
-					.authenticationSuccessHandler(loginSuccessHandler)
-					.useSecureCookie(false)
-					;
-			})
-			
-			.sessionManagement((s)->{
-				s
-				.invalidSessionUrl("/member/login")
-				.maximumSessions(1) //-1은 무한
-				.maxSessionsPreventsLogin(true) //false: 이전 사용자를 로그아웃, true: 현재 접속하려는 사용자 막기
-				.expiredUrl("/member/login") //redirect
+				form.disable()
+				//로그인하면 에러발생
 				;
 			})
+//			.httpBasic((httpBasic)->{
+//				httpBasic.disable();
+//			})
+			
+			//logout 설정
+			// 개발자가 아닌, Security Filter에서 처리
+//			.logout((logout)->{
+//				logout
+//					.logoutUrl("/member/logout")
+//					.addLogoutHandler(addLogoutHandler)
+//					.logoutSuccessHandler(addLogoutSuccessHandler)
+////					.logoutSuccessHandler(null)
+//					//.logoutRequestMatcher(new AntPathRequestMatcher("/member/logout")); deprecated 되있음
+//					.invalidateHttpSession(true) //세션 유지시간을 0으로 맞춰서 지우기
+//					.deleteCookies("JSESSIONID") //추가적으로 쿠키 지우고싶을때
+//					.logoutSuccessUrl("/") //로그아웃 성공시 리다이렉트로 어디로 보낼건지..
+//					;
+//			})
+			
+			.logout(logout->{
+				logout
+				.logoutUrl("/member/logout")
+				.invalidateHttpSession(true)
+				.deleteCookies("accessToken")
+				.logoutSuccessUrl("/")
+				;
+			})
+			
+//			.rememberMe((remember)->{
+//				remember
+//					.rememberMeParameter("remember-me") //기본설정된 이름이라 주석해도 됨
+//					.tokenValiditySeconds(30)
+//					.key("rememberkey")
+//					.userDetailsService(memberService)
+//					.authenticationSuccessHandler(loginSuccessHandler)
+//					.useSecureCookie(false)
+//					;
+//			})
+			
+			// Session 인증방식이 아닌
+			// Token 인증방식이기 때문에 Session을 사용하지 않음
+			
+			.sessionManagement((s)->{
+				s.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+				;
+			})
+			
+			//
+			.addFilter(new JwtAuthenticationFilter(authenticationConfiguration.getAuthenticationManager(), jwtTokenManager))
+			.addFilter(new JwtLoginFilter(authenticationConfiguration.getAuthenticationManager(), jwtTokenManager))
 			
 			.oauth2Login((o)->{
 				o.userInfoEndpoint((user)->{
