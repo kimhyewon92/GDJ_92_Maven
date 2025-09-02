@@ -47,9 +47,9 @@ public class NoticeController {
 	public String list(Pager pager, Model model) throws Exception{
 		// model: spring 리퀘스트 라이프사이클 유사, 스프링 컨트롤러에서 jsp로 전달할때 사용, 매개변수에 선언
 		
-		if(pager != null) {
-			throw new NullPointerException();
-		}
+//		if(pager != null) {
+//			throw new NullPointerException();
+//		}
 		
 		List<BoardVO> list = noticeService.list(pager);
 		model.addAttribute("list", list);

@@ -118,7 +118,7 @@ public class MemberService extends DefaultOAuth2UserService implements UserDetai
 		System.out.println("로그인 서비스");
 		try {
 			memberVO = memberDAO.login(memberVO);
-			return memberVO;
+			return memberVO; //필터로 감
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
