@@ -7,6 +7,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
+import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.Cookie;
@@ -34,13 +35,16 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter{
 		// 1. 토큰을 꺼내기
 		Cookie [] cookies = request.getCookies();
 		String token = "";
-		for (Cookie c : cookies) {
-			if(c.getName().equals("accessToken")) {
-				token = c.getValue();
-				break;
+		
+		if(cookies != null) {
+			for (Cookie c : cookies) {
+				if(c.getName().equals("accessToken")) {
+					token = c.getValue();
+					break;
+				}
 			}
 		}
-		System.out.println("Token : "+token);
+//		System.out.println("Token : "+token);
 		
 		//2.토큰을 검증
 		if(token != null && token.length() != 0) {
@@ -56,6 +60,36 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter{
 				// ExpiredJwtException : 기간이 만료된 Token
 				// UnSupportedJwtException : 지원되지 않는 Token
 				// IllegalArgumentsException : 잘못된 Token
+				
+				if(e instanceof ExpiredJwtException) {
+					System.out.println("기간 만료");
+					for (Cookie cookie : cookies) {
+						if(cookie.getName().equals("refreshToken")) {
+							String newToken = cookie.getValue();
+							System.out.println("refresh Token 일치");
+							
+							try {
+								Authentication authentication = jwtTokenManager.getAuthenticationByToken(newToken);
+								SecurityContextHolder.getContext().setAuthentication(authentication);
+								newToken = jwtTokenManager.makeAccessToken(authentication);
+								//새로운 엑세스토큰 넣어주기
+								Cookie c = new Cookie("accessToken", newToken);
+								c.setPath("/");
+								c.setMaxAge(180);
+								c.setHttpOnly(true);
+								
+								
+								response.addCookie(c);
+								
+							} catch (Exception ex) {
+								// TODO Auto-generated catch block
+								ex.printStackTrace();
+							}
+							
+						}
+					}
+				}
+				
 			}
 			
 		}
